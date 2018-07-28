@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <title>View Encapsulation</title>
+    <style>
+        @font-face {
+            font-family: third_rail;
+            src: url('./fonts/third_rail.ttf');
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .backgrounds {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: -1;
+            top: 0;
+            background: linear-gradient(#dea9cc, #9795c2);
+            display: grid;
+            grid-template-columns: 1fr auto repeat(2, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+        .background_image_2 {
+
+        }
+        .image_1 {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            width: 350px;
+            position: relative;
+            top: -20px;
+            left: -25px;
+            animation: 5s turn infinite;
+        }
+        .image_2 {
+            grid-column: 3;
+            width: 250px;
+            animation: 8s water infinite;
+        }
+        .image_4 {
+            width: 330px;
+            grid-column: 4;
+            justify-self: end;
+        }
+        .image_10 {
+            width: 90px;
+            grid-column: 1 / 2;
+            grid-row: 3;
+            align-self: center;
+            animation: 15s scale infinite;
+        }
+        .image_17 {
+            width: 100px;
+            grid-column: 1;
+            grid-row: 4;
+            justify-self: center;
+            padding: 0px 40px 45px 0px;
+        }
+        .image_22 {
+            width: 100px;
+            grid-column: 2;
+            grid-row: 4;
+            align-self: end;
+            padding: 20px;
+            animation: 5s wheel infinite;
+        }
+        .image_20 {
+            width: 330px;
+            grid-column: 4;
+            grid-row: 4;
+            justify-self: end;
+            align-self: end;
+        }
+        .image_07 {
+            width: 200px;
+            grid-column: 4;
+            grid-row: 2;
+            justify-self: end;
+            position: relative;
+            right: -30px;
+            animation: 3s blink infinite;
+        }
+        .image_13 {
+            width: 40px;
+            grid-column: 4;
+            grid-row: 3;
+            align-self: end;
+            justify-self: end;
+            animation: 4s opacity infinite;
+        }
+        .floor {
+            width: 100%;
+            height: 62px;
+            background-color: #f1c678;
+            z-index: -1;
+            grid-column: 1 / 5;
+            grid-row: 4;
+            align-self: end;
+        }
+        .title {
+            font-size: 180px;
+            text-align: center;
+            margin: 0px;
+            letter-spacing: 8px;
+            text-shadow: 8px 8px white;
+            font-family: third_rail;
+        }
+        .subtitle {
+            font-size: 130px;
+            text-align: center;
+            margin: 0px;
+            color: white;
+            text-shadow: 8px 8px #f55da0;
+            letter-spacing: 8px;
+            font-family: third_rail;
+        }
+        .text {
+            font-size: 110px;
+            text-align: center;
+            letter-spacing: 8px;
+            font-family: third_rail;
+            text-shadow: 6px 6px white;
+        }
+        .subtext {
+            font-size: 60px;
+            font-family: 'Quicksand', sans-serif;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.61);
+            color: white;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .subtext_intro {
+            font-size: 28px;
+            font-family: 'Quicksand', sans-serif;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.61);
+            color: white;
+            text-align: left;
+            letter-spacing: 2px;
+            margin: 5px;
+        }
+        .container {
+            width: 90%;
+            height: 80vh;
+            padding: 80px;
+            text-align: center;
+        }
+        .container_intro {
+            width: 90%;
+            height: 80vh;
+            padding: 28vw;
+        }
+        .list {
+            text-align: left;
+            font-size: 55px;            
+        }
+        .color {
+            color: #df4a77;
+            text-decoration: underline;
+            text-shadow: none;
+        }
+        @keyframes turn {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(-10deg);
+            }
+        }
+        @keyframes scale {
+            0% {
+                transform: scale(1, 0.3);
+            }
+            50% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1, 0.3);
+            }
+        }
+        @keyframes wheel {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes water {
+            0% {
+                transform: translatey(0px);
+            }
+            50% {
+                transform: translatey(-35px);
+            }
+        }
+        @keyframes blink {
+            0% {
+                transform: rotate(5deg);
+            }
+            5% {
+                transform: rotate(-5deg);
+            }
+            10% {
+                transform: rotate(5deg);
+            }
+        }
+        @keyframes opacity {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1200 })</script>
+
+    <div class="backgrounds">
+        <img class="image_1" src="./assets/Paramore_01.png" alt="">
+        <img class="image_2" src="./assets/Paramore_02.png" alt="">
+        <img class="image_4" src="./assets/Paramore_04.png" alt="">
+        <img class="image_10" src="./assets/Paramore_10.png" alt="">
+        <img class="image_17" src="./assets/Paramore_17.png" alt="">
+        <img class="image_22" src="./assets/Paramore_22.png" alt="">
+        <img class="image_20" src="./assets/Paramore_20.png" alt="">
+        <img class="image_07" src="./assets/Paramore_07.png" alt="">
+        <img class="image_13" src="./assets/Paramore_13.png" alt="">
+        <div class="floor"></div>
+    </div>
+    <!-- Slides -->
+    <div class="container" data-aos="fade-left">
+        <h1 class="title">Hello</h1>
+        <p style="text-align: center; margin: -8px 0px; font-size: 30px"><code>@teffcode</code></p>
+        <img src="./assets/teffcode.jpg" alt="" width="200px" style="margin-top: 30px; border: 5px solid white">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h1 class="subtitle">View</h1>
+        <h1 class="subtitle">Encapsulation</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">¿Qué es lo más difícil <br/> de hacer CSS?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <ul style="width: 90vh; padding-left: 210px">
+            <li class="subtext list">positions</li>
+            <li class="subtext list">vertical-align</li>
+            <li class="subtext list">padding</li>
+            <li class="subtext list">Compatibilidad</li>
+        </ul>
+    </div>
+    <div class="container" data-aos="fade-right">
+            <img src="./assets/MiM.png" alt="">
+        </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Pero, realmente hay dos <br/> problemas difíciles en CSS:</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">1. Poder manejar <br/> los nombres globales.</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">2. Lograr lo primero sin <br/> escribir demasiado código.</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 style="font-size: 80px; text-align: center">😳</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">¿Cuál es el problema <br/> del siguiente código?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/selectors.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">👉 #navbar ul li a {</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Lo malo siempre serán <br/> los selectores globales !</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/global-selectors.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Esto ocurre <br/> en la vida real !</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Pero bueno, <br/> quizás pensarás:</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">"mis selectores no son <br/> tan malos, yo uso <br/> BEM, SMACSS, OOCSS…" </h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">pero, ¿cómo ves <br/> el siguiente código?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/bad-selectors.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext" style="padding-top: 100px">¿Crees que son necesarias <br/> todas esas clases?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">¿Todo es malo?</h3>
+        <h3 style="font-size: 80px; text-align: center">🤔</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">¿Cómo deberíamos <br/> escribir buen CSS?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext" style="text-decoration:line-through;">¿Cómo deberíamos <br/> escribir buen CSS?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">¿Cómo deberíamos escribir CSS <br/> sin que lo arruinemos todo <br/> en tan poco tiempo?</h3>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Web <br/> Components</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Proporciona un modelo de <br/> componente estándar <br/> para la Web.</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Hace que estos problemas <br/> sean más fáciles de resolver:</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <ul style="width: 90vh; padding-left: 270px">
+            <li class="subtext list">Agrupar y <br/> aislar los estilos</li>
+            <li class="subtext list">Hacer que la lógica dependa de ellos</li>
+        </ul>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">¿Cómo está conformado <br/> un Web Component?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <ul style="width: 120vh; padding-left: 210px">
+            <li class="subtext list">Shadow DOM</li>
+            <li class="subtext list">Elementos Personalizados</li>
+            <li class="subtext list">Importaciones HTML</li>
+            <li class="subtext list">Elementos Template</li>
+        </ul>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Shadow <br/> DOM</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Elimina la fragilidad en <br/> la creación de componentes.</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Shadow DOM es un subárbol <br/> de nodos del DOM.</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Agrupa los estilos de CSS <br/> y los oculta 👻</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">¿Qué aspectos trabaja?</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <ul style="width: 120vh; padding-left: 210px">
+            <li class="subtext list">La encapsulación del DOM</li>
+            <li class="subtext list">Composición</li>
+            <li class="subtext list">Alcance del CSS</li>
+            <li class="subtext list">Simplificación el CSS</li>
+            <li class="subtext list">Productividad</li>
+        </ul>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Encapsulacion <br/> del DOM</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">El navegador transforma el <br/> HTML en un árbol de nodos.</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Representación viva <br/> de tu página web 😻</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/HTML.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Su árbol de nodos <br/> sería el siguiente:</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/DOM.gif" alt="" width="700vw">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Estos nodos contienen <br/> propiedades y métodos <br/> <br/> JS 👉 DOM</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/DOM-JS.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Composicion</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/video.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Alcance <br/> CSS</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Los selectores externos <br/> no se filtran dentro <br/> del componente</h3>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Simplificacion <br/> CSS</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Selectores más simples <br/> y genéricos</h3>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Productividad</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Pequeños fragmentos <br/> del DOM</h3>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Custom <br/> Elements</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Nuevas etiquetas <br/> de HTML <br/> <br/> ⭐ JS ⭐</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/custom-element-start.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/tag-custom-element.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Crea un shadow root en <br/> su método del ciclo de vida <br/> createdCallback</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/callback.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">y, el elemento personalizado <br/> quedaría así:</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/custom-element.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Importaciones <br/> HTML</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Es la forma de empaquetar 📦 <br/> un elemento personalizado <br/> <br/> 👉 link tag</h3>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">Elementos <br/> Templates</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Mantienen su <br/> contenido oculto 🕵 <br/> <br/> 👉 template tag</h3>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">View <br/> Encapsulation</h1>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Angular nos permite <br/> aprovechar el <br/> ⚡ Shadow DOM ⚡</h3>
+    </div>
+    <div class="container" data-aos="fade-right">
+        <img src="./assets/generate.png" alt="">
+    </div>
+    <div class="container" data-aos="fade-right">
+        <h3 class="subtext">Vamos al proyecto</h3>
+        <h3 class="subtext">💻</h3>
+    </div>
+    <div class="container_intro" data-aos="fade-left">
+        <h3 class="subtext_intro">Web Components
+        <h3 class="subtext_intro" style="padding-left: 6vw">Shadow DOM</h3>
+        <h3 class="subtext_intro" style="padding-left: 10vw">DOM</h3>
+        <h3 class="subtext_intro" style="padding-left: 10vw">Composición</h3>
+        <h3 class="subtext_intro" style="padding-left: 10vw">Alcance CSS</h3>
+        <h3 class="subtext_intro" style="padding-left: 10vw">Simplificación CSS</h3>
+        <h3 class="subtext_intro" style="padding-left: 10vw">Productividad</h3>
+        <h3 class="subtext_intro" style="padding-left: 6vw">Elementos personalizados</h3>
+        <h3 class="subtext_intro" style="padding-left: 6vw">Importaciones HTML</h3>
+        <h3 class="subtext_intro" style="padding-left: 6vw">Elementos template</h3>
+        <h3 class="subtext_intro">View Encapsulation</h3>
+        <h3 class="subtext_intro" style="padding-left: 6vw">Ejemplo</h3>
+    </div>
+    <div class="container" data-aos="fade-left">
+        <h1 class="text">The end</h1>
+        <p style="text-align: center; margin: -8px 0px; font-size: 30px"><code>@teffcode</code></p>
+    </div>
+</body>
+</html>
